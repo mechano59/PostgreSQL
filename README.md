@@ -6,6 +6,7 @@
  - [What Is Postgresql](https://github.com/mechano59/PostgreSQL/blob/master/README.md#what-is-postgresql)
  - [Prerequisite](https://github.com/mechano59/PostgreSQL/blob/master/README.md#prerequisite)
  - [Installing PostgreSQL](https://github.com/mechano59/PostgreSQL/blob/master/README.md#installing-postgresql)
+ - [Knowing Things About PostgreSQL](https://github.com/mechano59/PostgreSQL/blob/master/README.md#knowing-things-about-postgresql)
  - [Helpful Commands](https://github.com/mechano59/PostgreSQL/blob/master/README.md#helpful-commands)
  - [Off You Go](https://github.com/mechano59/PostgreSQL/blob/master/README.md#off-you-go)
 
@@ -30,6 +31,9 @@ Create the file repository configuration:
 Import the repository signing key:
 
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+![create_and_import_repo](https://github.com/mechano59/PostgreSQL/blob/master/images/create_and_import_repo.png)
+
 Update the package lists:
 
     sudo apt-get update  
@@ -49,8 +53,23 @@ You can exit out of the PostgreSQL prompt by using :
 
 postgres=# `\q`
 
-It's not recommended practice to use the default postgres role for everything. 
-So now let's make a new role. For that use : 
+But before quitting it's a good idea to set a password for the default postgres as there is no password set by default. For that use :
+
+postgres=# `\password postgres`
+
+Enter new password : `123456`
+
+Enter it again : `123456`
+
+  postgres=# `\q`
+  
+
+**Use a strong password please.  :3** 
+
+![set_postgres_password](https://github.com/mechano59/PostgreSQL/blob/master/images/set_postgres_password_2.png)
+
+Now it's not recommended practice to use the default postgres role for everything. 
+So let's make a new role. For that use : 
 
     sudo -u postgres createuser --interactive --password
 Enter name of role to add: `plaban`
@@ -59,6 +78,8 @@ Shall the new role be a superuser? (y/n) : `y`
 
 Password: `123456`  
 ***please use something stronger.***
+
+![create_user_postgres](https://github.com/mechano59/PostgreSQL/blob/master/images/create_user_postgres.png)
 
 Now in order to access this role we need to have a database of the same name. So let's create that database :
 
@@ -99,10 +120,84 @@ Enter the new value, or press ENTER for the default
 	
 Is the information correct? [Y/n] `y`
 
+![create_user_pc](https://github.com/mechano59/PostgreSQL/blob/master/images/create_user_pc.png)
+
 
 And its done. you can now easily access using that role by typing :
 
     sudo -i -u plaban psql
+
+![plaban_login](https://github.com/mechano59/PostgreSQL/blob/master/images/plaban_login.png)
+
+
+## Knowing Things About PostgreSQL
+
+To create a database named general, we will use :
+
+    CREATE DATABASE general WITH OWNER plaban;
+
+We can see our list of database by using : 
+`\l`
+
+![create_database_general](https://github.com/mechano59/PostgreSQL/blob/master/images/create_databaase_general.png)
+
+We can use `\conninfo` to see that we are connected to database plaban as user plaban.  To change our current database and use the new database we will use :
+
+    \c general 
+
+![connect_to_general](https://github.com/mechano59/PostgreSQL/blob/master/images/connect_to_general.png)
+
+
+To create a table use :
+
+    CREATE TABLE students (
+    roll BIGSERIAL NOT NULL PRIMARY KEY, 
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    gender VARCHAR(8) NOT NULL, 
+    parent_contact VARCHAR(50),
+    department VARCHAR(50) NOT NULL );
+
+Or you can write it in the same line :
+
+    CREATE TABLE students (roll BIGSERIAL NOT NULL PRIMARY KEY, first_name VARCHAR(50) NOT NULL, last_name VARCHAR(50) NOT NULL, gender VARCHAR(8) NOT NULL, parent_contact VARCHAR(50), department VARCHAR(50) NOT NULL ) ;
+
+We can use `\d` to see all the tables we hava in our database and we can write `\d table_name` to see the details of the mentioned table.
+
+![create_table_students](https://github.com/mechano59/PostgreSQL/blob/master/images/create_table_students.png)
+
+To delete a table we can use the following command :
+
+    DROP TABLE dummy;
+
+**Please note**  : Be very careful while using it because it will delete the table without any further confirmation. So one wrong step and you will lose year's worth of hard work. We can also delete a database by using the `DROP` command like ```DROP DATABASE general;``` 
+
+In order to insert data in our new table, we will use : 
+
+    INSERT INTO students (
+    first_name, 
+    last_name, 
+    gender, 
+    parent_contact, 
+    department) 
+    VALUES ('Sakib', 'Ahmed', 'Female', '95631780', 'Accounting');
+
+Or,  you can just write it in the same line.
+
+    INSERT INTO students (first_name, last_name, gender, parent_contact, department) values ('Amena', 'Akhter', 'Male', '7282547767', 'Sales Management');
+To view all the data in the table at once, use :
+
+    SELECT * FROM students;
+And if you want to view a specific column, use :
+
+    SELECT first_name FROM students;
+and if you want to arrange the data in certain order, use ORDER BY column_name ASC or DESC : 
+
+    SELECT first_name FROM students ORDER BY first_name ASC;
+Or 
+
+    SELECT first_name, gender FROM students ORDER BY first_name DESC;
+
 
 ## Helpful Commands
 These are some of the helpful commands which will get you started smoothly.
