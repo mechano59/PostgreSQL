@@ -1,3 +1,4 @@
+
 # PostgreSQL
 ![postgresql_logo](https://miro.medium.com/max/800/1*PY24xlr4TpOkXW04HUoqrQ.jpeg)
 
@@ -172,6 +173,9 @@ To delete a table we can use the following command :
 
 **Please note**  : Be very careful while using it because it will delete the table without any further confirmation. So one wrong step and you will lose year's worth of hard work. We can also delete a database by using the `DROP` command like ```DROP DATABASE general;``` 
 
+
+![drop-table](https://github.com/mechano59/PostgreSQL/blob/master/images/drop_database.png)
+
 In order to insert data in our new table, we will use : 
 
     INSERT INTO students (
@@ -185,6 +189,9 @@ In order to insert data in our new table, we will use :
 Or,  you can just write it in the same line.
 
     INSERT INTO students (first_name, last_name, gender, parent_contact, department) values ('Amena', 'Akhter', 'Male', '7282547767', 'Sales Management');
+
+![insert data in table](https://github.com/mechano59/PostgreSQL/blob/master/images/insert_data_in_table.png)
+
 To view all the data in the table at once, use :
 
     SELECT * FROM students;
