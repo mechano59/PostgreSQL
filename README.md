@@ -1,4 +1,5 @@
 
+
 # PostgreSQL
 ![postgresql_logo](https://miro.medium.com/max/800/1*PY24xlr4TpOkXW04HUoqrQ.jpeg)
 
@@ -210,7 +211,10 @@ Or
 
     SELECT first_name, gender FROM students ORDER BY first_name DESC;
 
-Using AND and OR separately to select Data : 
+
+![asc_desc](https://github.com/mechano59/PostgreSQL/blob/master/images/asc_desc.png)
+
+You can also use AND and OR separately to select Data : 
 
     SELECT * FROM students WHERE last_name='Begum' AND department= 'Engineering';
 
@@ -218,22 +222,42 @@ Using AND and OR together to select Data :
 
     SELECT * FROM students WHERE last_name='Begum' AND ( department= 'Engineering' OR department= 'Human Resources');
 
+![and_or](https://github.com/mechano59/PostgreSQL/blob/master/images/and_or.png)
+
+If you have multiple instances of a data and you want to view just one of its type then you can use `DISTINCT` to do that. 
+
+    SELECT DISTINCT department FROM students ORDER BY department;
+
+
+![select _distinct](https://github.com/mechano59/PostgreSQL/blob/master/images/select_distinct.png)
 
 ### Comparison Operators
  
 Although these might seem unimportant or trivial at first, but with a little bit of creativity these commands can make life much easier. 
 
-SELECT * FROM students LIMIT 4;
+### Selecting Using Offset and Limit
 
-SELECT * FROM students OFFSET 2 LIMIT 4;
+These can be helpful when one needs to select some specified data from the table within a certain range of serial number. 
 
-Selecting multiple table data
-SELECT * FROM students WHERE last_name IN ('Hossain', 'Akhter');
+`SELECT * FROM students LIMIT 4;`
 
-SELECT * FROM students WHERE last_name IN ('Hossain', 'Akhter') OR department= 'Accounting';
+`SELECT * FROM students OFFSET 2 LIMIT 4;`
 
-SELECT * FROM students WHERE last_name IN ('Hossain', 'Akhter') OR department= 'Accounting' ORDER BY last_name;
+![offset_limit](https://github.com/mechano59/PostgreSQL/blob/master/images/offset_limit.png)
 
+### Selecting Multiple Table Data
+
+`SELECT * FROM students WHERE last_name IN ('Hossain', 'Akhter');`
+
+`SELECT * FROM students WHERE last_name IN ('Hossain', 'Akhter') OR department= 'Accounting';`
+
+`SELECT * FROM students WHERE last_name IN ('Hossain', 'Akhter') OR department= 'Accounting' ORDER BY last_name;`
+
+
+![in_where](https://github.com/mechano59/PostgreSQL/blob/master/images/in_where.png)
+
+
+Now this is just the tip of the ice-berg. PostgreSQL is a vast topic with immense scope of expanding one's knowledge. What i did is just to give you a head start. Now it's up to you to continue to this path.
 
 ## Helpful Commands
 
@@ -264,4 +288,6 @@ Well there's not much left to teach you now. From here you just need venture on 
 there are great tutorials blogs about PostgreSQL which will help you along the way. Also you can always refer to the [PostgreSQL](https://www.postgresql.org/docs/10/app-psql.html)  website for further help. 
 
 Good luck on your journey!
+
+
 
