@@ -133,6 +133,8 @@ And its done. you can now easily access using that role by typing :
 
 ## Knowing Things About PostgreSQL
 
+### Creating a Database
+
 To create a database named general, we will use :
 
     CREATE DATABASE general WITH OWNER plaban;
@@ -148,6 +150,7 @@ We can use `\conninfo` to see that we are connected to database plaban as user p
 
 ![connect_to_general](https://github.com/mechano59/PostgreSQL/blob/master/images/connect_to_general.png)
 
+### Creating a Table 
 
 To create a table use :
 
@@ -174,7 +177,7 @@ To delete a table we can use the following command :
 **Please note**  : Be very careful while using it because it will delete the table without any further confirmation. So one wrong step and you will lose year's worth of hard work. We can also delete a database by using the `DROP` command like ```DROP DATABASE general;``` 
 
 
-![drop-table](https://github.com/mechano59/PostgreSQL/blob/master/images/drop_database.png)
+![drop-database](https://github.com/mechano59/PostgreSQL/blob/master/images/drop_database.png)
 
 In order to insert data in our new table, we will use : 
 
@@ -192,6 +195,8 @@ Or,  you can just write it in the same line.
 
 ![insert data in table](https://github.com/mechano59/PostgreSQL/blob/master/images/insert_data_in_table.png)
 
+### Viewing the Same Table Differently 
+
 To view all the data in the table at once, use :
 
     SELECT * FROM students;
@@ -205,8 +210,33 @@ Or
 
     SELECT first_name, gender FROM students ORDER BY first_name DESC;
 
+Using AND and OR separately to select Data : 
+
+    SELECT * FROM students WHERE last_name='Begum' AND department= 'Engineering';
+
+Using AND and OR together to select Data : 
+
+    SELECT * FROM students WHERE last_name='Begum' AND ( department= 'Engineering' OR department= 'Human Resources');
+
+
+### Comparison Operators
+ 
+Although these might seem unimportant or trivial at first, but with a little bit of creativity these commands can make life much easier. 
+
+SELECT * FROM students LIMIT 4;
+
+SELECT * FROM students OFFSET 2 LIMIT 4;
+
+Selecting multiple table data
+SELECT * FROM students WHERE last_name IN ('Hossain', 'Akhter');
+
+SELECT * FROM students WHERE last_name IN ('Hossain', 'Akhter') OR department= 'Accounting';
+
+SELECT * FROM students WHERE last_name IN ('Hossain', 'Akhter') OR department= 'Accounting' ORDER BY last_name;
+
 
 ## Helpful Commands
+
 These are some of the helpful commands which will get you started smoothly.
 
 To see which Role and Database are you using :
@@ -234,3 +264,4 @@ Well there's not much left to teach you now. From here you just need venture on 
 there are great tutorials blogs about PostgreSQL which will help you along the way. Also you can always refer to the [PostgreSQL](https://www.postgresql.org/docs/10/app-psql.html)  website for further help. 
 
 Good luck on your journey!
+
